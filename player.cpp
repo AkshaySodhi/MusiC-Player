@@ -224,6 +224,7 @@ class Player {
     public:
     Player() {
         cout << "\033]0;MusiC++\007";
+        srand(time(0));
         greeting();
         setPlayer();
         playerHandler();

@@ -11,9 +11,9 @@ void greeting() {
     time_t t = time(0);
     int hour = localtime(&t)->tm_hour;
     if (hour > 2 && hour < 12) cout << dye::aqua("Good morning\n");
-    else if (hour >= 12 && hour <= 16) cout << dye::aqua("Good afternoon\n");
-    else if (hour <= 20) cout << dye::aqua("Good evening\n");
-    else cout << dye::aqua("Welcome\n");
+    else if (hour >= 12 && hour < 16) cout << dye::aqua("Good afternoon\n");
+    else if (hour >= 16 && hour <= 20) cout << dye::aqua("Good evening\n");
+    else cout << dye::aqua("\n");
 }
 
 float randomNumber() {

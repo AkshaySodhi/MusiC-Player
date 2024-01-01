@@ -34,7 +34,7 @@ vector<pair<string, string>> generateTrackList(const char* path) {
     int isFile = 32768;
     vector<pair<string, string>>list;
 
-    struct dirent* entry;
+    struct dirent* entry = 0;
     DIR* dir = opendir(path);
 
     if (!dir) return list;

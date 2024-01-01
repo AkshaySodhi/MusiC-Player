@@ -20,9 +20,9 @@ float randomNumber() {
     return ((float)rand() / RAND_MAX);
 }
 
-void printTrackList(vector<pair<string, string>>tracks, pair<string, string> currTrack = {}) {
+void printTrackList(const vector<pair<string, string>>& tracks, const pair<string, string>& currTrack = {}) {
     cout << dye::aqua("\nPlaylist\n");
-    for (int i = 0; i < tracks.size(); i++)
+    for (size_t i = 0; i < tracks.size(); i++)
     {
         if (tracks[i] == currTrack) cout << dye::green(i + 1) << dye::green(" - ") << dye::green(tracks[i].first) << "\n";
         else cout << i + 1 << " - " << tracks[i].first << "\n";
@@ -37,7 +37,12 @@ vector<pair<string, string>> generateTrackList(const char* path) {
     struct dirent* entry = 0;
     DIR* dir = opendir(path);
 
-    if (!dir) return list;
+    if (!dir)
+    {
+        cout << dye::red("No such directory exists!\n");
+        closedir(dir);
+        return list;
+    }
     while ((entry = readdir(dir)) != NULL)
     {
         if (entry->d_type == isFile)
@@ -56,8 +61,8 @@ vector<pair<string, string>> generateTrackList(const char* path) {
 
 class Player {
     private:
-    int i; //index of current track in tracklist
-    int n; //size of tracklist
+    size_t i; //index of current track in tracklist
+    size_t n; //size of tracklist
     bool isShuffled;
     bool isPlaying;
     string path;
@@ -65,7 +70,7 @@ class Player {
     pair<string, string> currTrack;
 
     void shuffle() {
-        int j = randomNumber() * n;
+        size_t j = randomNumber() * n;
         while (i == j)
         {
             j = randomNumber() * n;
@@ -85,6 +90,7 @@ class Player {
             cout << "Enter path to music folder\n\n";
             cin >> path;
             this->trackList = generateTrackList(path.c_str());
+            n = trackList.size();
         }
     }
 
@@ -177,7 +183,7 @@ class Player {
             }
             else if (input == "playtrack")
             {
-                int j;
+                size_t j;
                 cout << "Enter track number-> ";
                 cin >> j;
 
